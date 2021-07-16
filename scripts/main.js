@@ -2,9 +2,8 @@ import * as THREE from "./three/build/three.module.js";
 import { OrbitControls } from "./three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "./three/examples/jsm/loaders/GLTFLoader.js";
 import { GUI } from "./three/examples/jsm/libs/dat.gui.module.js";
-import { RGBELoader } from "./three/examples/jsm/loaders/RGBELoader.js";
 
-let scene, camera, renderer, clock, mixer1;
+let scene, camera, renderer;
 let gui, guiExposure = null;
 
 const params = {
@@ -38,7 +37,7 @@ renderer.toneMappingExposure = params.exposure;
 renderer.outputEncoding = THREE.sRGBEncoding;
 
 renderer.shadowMap.enabled = true;
-renderer.shadowMapType = THREE.PCFSoftShadowMap; //for anti aliasing
+//renderer.shadowMapType = THREE.PCFSoftShadowMap; //for anti aliasing
 
 //Resize Event
 window.addEventListener("resize", function () {
@@ -54,10 +53,12 @@ loader.load("assets/mesh/Robot.glb", function (Model) {
     scene.add(Model.scene);
     Model.scene.position.set(0,-2,0);
     Model.scene.castShadow = true;
+    Model.scene.receiveShadow = false;
  });
+ 
 
 var geo = new THREE.PlaneBufferGeometry(10, 10, 8, 8);
-var mat = new THREE.MeshBasicMaterial({ color: 0x0000FF, side: THREE.DoubleSide });
+var mat = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, side: THREE.DoubleSide });
 var plane = new THREE.Mesh(geo, mat);
 scene.add(plane);
 plane.position.set(0, -2, 0);
