@@ -53,7 +53,6 @@ loader.load("assets/mesh/Robot.glb", function (Model) {
     scene.add(Model.scene);
     Model.scene.position.set(0,-2,0);
     Model.scene.castShadow = true;
-    Model.scene.receiveShadow = false;
  });
  
 
@@ -69,10 +68,27 @@ plane.rotateX( - Math.PI / 2);
 //Lightning
 var ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
 scene.add(ambientLight);
-var pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(2, 2, 2);
-scene.add(pointLight);
-pointLight.castShadow = true;
+
+const light = new THREE.DirectionalLight( 0xdfebff, 1 );
+light.position.set( 50, 200, 100 );
+light.position.multiplyScalar( 1.3 );
+
+light.castShadow = true;
+
+light.shadow.mapSize.width = 1024;
+light.shadow.mapSize.height = 1024;
+
+const d = 300;
+
+light.shadow.camera.left = - d;
+light.shadow.camera.right = d;
+light.shadow.camera.top = d;
+light.shadow.camera.bottom = - d;
+
+light.shadow.camera.far = 1000;
+
+scene.add( light );
+
 
 
 //Orbital Controls
