@@ -68,7 +68,7 @@ renderTargetBlur.texture.generateMipmaps = false;
 const planeGeometry = new THREE.PlaneGeometry( PLANE_WIDTH, PLANE_HEIGHT ).rotateX( Math.PI / 2 );
 const planeMaterial = new THREE.MeshBasicMaterial( {
         map: renderTarget.texture,
-        opacity: state.shadow.opacity,
+       opacity: state.shadow.opacity,
         transparent: true,
         depthWrite: false,
 } );
